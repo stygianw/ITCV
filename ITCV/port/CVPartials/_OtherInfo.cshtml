@@ -1,0 +1,18 @@
+﻿@model TPN.NewModel.CV.CV
+<div id="OtherCerts" ng-controller="PersonalDataController">
+    <div class="sidebar">
+        <h3>Текущий статус раздела: </h3>
+        <hr />
+        <span class="notice">
+            Введите дополнительную информацию по вашему желанию. Данная информация не обязательна, но будет плюсом при рассмотрении вашего резюме.
+        </span>
+    </div>
+    
+    <div style="padding-left: 15px">
+        <h3>Дополнительная информация: </h3>
+        <hr />
+        
+        @Html.TextAreaFor(m => m.OtherInfo, new { ng_model = "cv.OtherInfo", rows = "7", cols = "50" })<br />
+        
+    </div>
+</div>

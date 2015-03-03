@@ -1,0 +1,32 @@
+﻿<div id="skillsSection" ng-controller="PersonalDataController">
+<div class="sidebar">
+    <h3>Текущий статус раздела:</h3>
+    <hr />
+    <span ng-hide="GetFilledSkills().length" class="remark">You have no added skills</span>
+    <section ng-show="skills.length">
+        <ul>
+            <li ng-repeat="skill in GetFilledSkills()">{{"Навык " + ($index + 1) + ": " + skill}}</li>
+        </ul>
+
+    </section>
+    
+</div>    
+
+    
+    <div style="padding-left: 15px">
+        <h3>
+            Введите ваши основные IT-навыки:
+        </h3>
+        <hr />
+        <section id="inputs" ng-repeat="skill in skills" style="height: initial; padding: 4px">
+
+            <span>{{"Навык " + ($index + 1) + ": "}}</span><input type="text" ng-model="skill.skill" /><br />
+            
+        </section>
+        <input type="button" value="Добавить навык" ng-click="addSkill()" />
+        <input type="button" value="Удалить навык" ng-click="removeSkill()" />
+    </div>
+
+    
+</div>
+    

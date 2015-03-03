@@ -1,0 +1,280 @@
+﻿
+
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+    
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.maintab {
+    clear: left;
+    width: 100%;
+    height: 100%;
+    border-top: 1px solid #0072c6;
+}
+
+.ng-scope {
+    height: inherit;
+}
+
+.sidebar{
+    /*float: left;*/
+    width: 250px;
+    height: 93%;
+    border-right: 1px solid black;
+    /*padding: 10px;*/
+}
+
+#tabs {
+    /*width: 1400px;*/
+    height: 400px;
+    
+    /*border: 1px solid black;
+    clear: left;
+    font-size: 12px;*/
+}
+
+#tabs h3{
+    font-size: 14px;
+}
+
+#tabs div{
+    float: left;
+}
+
+#tabs input[type=text]{
+    height: 16px;
+    font-size: 12px;
+}
+
+#eduContainer{
+    font-size: 13px;
+}
+
+#eduContainer > div {
+    height: 92%;
+}
+
+#UnisDiv,#eduInfoDiv{
+    width: 260px; 
+    border-right: 1px solid black; 
+    padding: 0px 20px 0px 20px; 
+    
+    
+}
+
+/*#eduInfoDiv {
+    width: 200px;
+    border-right: 1px solid black; 
+    height: 100%; 
+    padding: 0px 20px 0px 20px
+}*/
+
+.correct-signal {
+    color: green;
+
+}
+
+.repeater {
+    height: 20px;
+    width: 250px;
+    clear: left;
+    margin-bottom: 10px;
+    
+    
+}
+
+/*.repeater.ng-enter{
+    
+    -webkit-transition: 1s all;
+    transition: 1s all;
+    opacity: 0;
+    height: 0px;
+    
+}
+
+.repeater.ng-enter-active{
+    height: 20px;
+    opacity: 1;
+    }*/
+
+.sideHeader{
+    width:inherit;
+    height: inherit;
+    text-align: center;
+    background-color: rgb(0, 113, 197);
+    opacity:0.6;
+    background-color:rgb(212, 230, 243);
+    font-size: 15px;
+}
+
+.sideHeader:hover{
+    background-color: rgb(0, 113, 197) ;
+    color: white;
+    opacity: 1;
+}
+
+.sideSelected{
+    background-color:green;
+    color: white;
+}
+
+.sideEdit{
+    background-color: yellow;
+    color: black;
+    
+}
+
+.sideContainer {
+    -webkit-transition: 1s all;
+    transition: 1s all;
+    height: 200px;
+    width: 250px;
+    font-size: 11px;
+    background-color: aliceblue;
+    overflow: hidden;
+}
+
+.sideContainer.ng-hide-add {
+    -webkit-transition: 1s all;
+    transition: 1s all;
+    height: 0px;
+}
+
+.sideContainer.ng-hide-remove {
+    transition: 0s all;
+    height: 0px;
+}
+
+.repeater.ng-enter, 
+.repeater.ng-leave
+{ 
+    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
+} 
+ 
+.repeater.ng-enter.ng-enter-active, 
+.ng-leave {
+    opacity: 1;
+    top: 0;
+    height: 20px;
+}
+ 
+.repeater.ng-leave.ng-leave-active,
+.ng-enter {
+    opacity: 0;
+    top: -50px;
+    height: 0px;
+}
+
+.cvholder{
+    border-top: 4px double #0072c6;
+    border-bottom: 4px double #0072c6;
+    min-height: 400px;
+}
+
+#manualEnter{
+    font-size: 13px;
+    height: 92%;
+    width: 250px;
+    transition: 1s all;
+    overflow: hidden;
+    border-right: 1px solid black
+}
+#manualEnter > div {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#manualEnter.ng-hide-add{
+    transition: 1s all;
+    width: 0px;
+}
+
+#manualEnter.ng-hide-remove{
+    transition: 0s all;
+    width: 0px;
+}
+
+.notice {
+    display: block;
+    margin: 10px;
+    padding: 5px;
+    font-family: Calibri;
+    font-size: 13px;
+    color: gray;
+    border: 1px solid gray;
+}
+
+.errorsContainer
+{
+    width: 320px;
+    color: red;
+    border-color: red;
+    background-color: white;
+    opacity: 1;
+    max-height: 110px;
+    transition: 1s all;
+}
+
+.errorsContainerOk {
+    /*width: 320px;
+    font-family: Calibri;
+    font-size: 13px;*/
+    color: green;
+    border-color: green;
+    background-color: rgb(211, 255, 217);
+    /*opacity: 1;
+    transition: 1s all;*/
+
+}
+
+.errorsContainerFault {
+    /*width: 320px;
+    font-family: Calibri;
+    font-size: 13px;*/
+    border-color: rgb(203, 117, 45);
+    background-color: rgb(246, 249, 124);
+    opacity: 1;
+    /*opacity: 1;
+    transition: 1s all;*/
+
+}
+
+.errorsContainer.ng-hide-add{
+    /*transition: 1s all;*/
+    opacity: 0;
+}
+
+.errorsContainer.ng-hide-remove{
+    /*transition: opacity linear 1s;*/
+    opacity: 0;
+
+}
+.errorsContainer.ng-hide-remove-active{
+    /*transition: 1s all;*/
+    opacity: 1;
+}
+

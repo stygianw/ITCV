@@ -1,0 +1,86 @@
+﻿@model TPN.NewModel.CV.CV
+<div ng-controller="PersonalDataController">
+    <div class="sidebar">
+        <h3>Текущий статус раздела:</h3>
+        <hr />
+        <table>
+            <tr>
+                <td>Имя: </td>
+                <td><span class="field-validation-error" ng-class="{'correct-signal': CheckData(info.Name, 'User_Name')}">{{info.Name ? "Введено" : "Не введено"}}</span></td>
+            </tr>
+            <tr>
+                <td>Фамилия: </td>
+                <td><span class="field-validation-error" ng-class="{'correct-signal': CheckData(info.Surname,'User_Surname')}">{{info.Surname ? "Введено" : "Не введено"}}</span></td>
+            </tr>
+            <tr>
+                <td>Дата рождения: </td>
+                <td><span class="field-validation-error" ng-class="{'correct-signal': CheckData(info.DateOfBirth, 'User_DateOfBirth') == 2}">{{CheckData(info.DateOfBirth, 'User_DateOfBirth') == 2 ? "Введено" : (CheckData(info.DateOfBirth, 'User_DateOfBirth') == 0 ? "Не введено" : "Введено неверно")}}</span></td>
+            </tr>
+            <tr>
+                <td>Адрес: </td>
+                <td><span class="field-validation-error" ng-class="{'correct-signal': CheckData(info.Address,'User_Address')}">{{info.Address ? "Введено" : "Не введено"}}</span></td>
+            </tr>
+            <tr>
+                <td>Эл. почта: </td>
+                <td><span class="field-validation-error" ng-class="{'correct-signal': CheckData(info.Email, 'User_Email') == 2}">{{CheckData(info.Email, 'User_Email') == 2 ? "Введено" : (CheckData(info.Email, 'User_Email') == 0 ? "Не введено" : "Введено неверно")}}</span></td>
+            </tr>
+            <tr>
+                <td>Телефон: </td>
+                <td><span class="field-validation-error" ng-class="{'correct-signal': CheckData(info.Phone,'User_Phone')}">{{info.Phone ? "Введено" : "Не введено"}}</span></td>
+            </tr>
+            <tr>
+                <td>Моя цель:</td>
+                <td><span class="field-validation-error" ng-class="{'correct-signal': CheckData(cv.Purpose,'Purpose')}">{{cv.Purpose ? "Введена" : "Не введена"}}</span></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="personalData" style="padding-left: 15px">
+        <h3>
+            Введите ваши персональные данные:
+        </h3>
+        <hr />
+        <form id="personalDataForm">
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.User.Name)</td>
+                    <td>@Html.TextBoxFor(m => m.User.Name, new { ng_model = "info.Name" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.User.Name)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.User.Surname)</td>
+                    <td>@Html.TextBoxFor(m => m.User.Surname, new { ng_model = "info.Surname" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.User.Surname)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.User.DateOfBirth)</td>
+                    <td>@Html.TextBoxFor(m => m.User.DateOfBirth, new { ng_model = "info.DateOfBirth", data_val_date = "Неверный формат даты!" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.User.DateOfBirth)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.User.Address)</td>
+                    <td>@Html.TextBoxFor(m => m.User.Address, new { ng_model = "info.Address" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.User.Address)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.User.Email)</td>
+                    <td>@Html.TextBoxFor(m => m.User.Email, new { ng_model = "info.Email" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.User.Email)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.User.Phone)</td>
+                    <td>@Html.TextBoxFor(m => m.User.Phone, new { ng_model = "info.Phone" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.User.Phone)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Purpose)</td>
+                    <td>@Html.TextAreaFor(m => m.Purpose, new { ng_model = "cv.Purpose" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.Purpose)></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

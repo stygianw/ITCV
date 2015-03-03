@@ -1,0 +1,157 @@
+﻿@model ITCV.Models.Views.Education
+<div id="eduContainer" ng-controller="EdusController" ng-init="Init()" class="row">
+    <div ng-controller="SidebarController as side" id="Edus" class="sidebar col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Текущий статус раздела:
+            </div>
+            <div ng-if="!edusFromModel.length" class="panel-body">
+                <span>Вы не добавили ни одного образования</span>
+            </div>
+                
+                    <table class="table">
+                        <tr ng-repeat="edu in edusFromModel">
+                            <td ng-class="{warning: $parent.editor.item === $index}">
+                                <div id="EduHeader" class="sideHeader" ng-class="{sideSelected: side.IsSet($index), sideEdit: $parent.editor.item === $index}" ng-click="side.ShowDiv($index)">
+                                    @*<span>{{"Образование " + " " + ($index+1)}}</span>
+                <span ng-show="$parent.editor.item === $index"> - редактируется</span>
+                <a href="javascript:void(0)" ng-click="Init()" ng-if="$parent.editor.item === $index">(отменить)</a>
+                <br />*@
+                                    <a data-toggle="collapse" href="#EduContainer{{$index}}">{{"Образование " + ($index + 1)}}</a>
+                                    <span ng-if="$parent.editor.item === $index">Редактируется</span>
+                                </div>
+                                <div id="EduContainer{{$index}}" class="collapse in" @*ng-show="side.IsSet($index)"*@>
+                                    <table>
+                                        <tr>
+                                            <td>Школа/ВУЗ:</td>
+                                            <td>{{edu.University.UniversityName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Начало обучения:</td>
+                                            <td>{{edu.EduBegin}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Конец обучения:</td>
+                                            <td>{{edu.EduEnd}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Специальность:
+                                            </td>
+                                            <td>
+                                                {{edu.Specialty}}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <input type="button" ng-if="!($parent.editor.item === $index)" class="btn btn-warning btn-sm" value="Редактировать" ng-click="$parent.Edit($index)" />
+                                                <input type="button" ng-if="$parent.editor.item === $index" class="btn btn-danger btn-sm" ng-click="Init()" value="Отмена">
+                                            </td>
+
+                                        </tr>
+
+                                    </table>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                
+            
+        </div>
+
+    </div>
+
+    
+        <div id="UnisDiv" class="col-md-3">
+            <h4>Шаг 1: Выбор учебного заведения</h4>
+            <hr />
+            <label>Выбранное учебное заведение: </label>
+            <span id="eduSetSpan">{{eduUnderEdit.University.UniversityName || "Не выбрано"}}</span><br />
+            <br />
+
+            <label>Выбранный факультет: </label>
+
+
+            <span id="facSetSpan">{{eduUnderEdit.Faculty.FacultyName || "Не выбрано"}}</span><br />
+            <hr />
+
+            <div id="unisSelectionListDiv">
+                @Html.DropDownList("Unis", (SelectList)ViewBag.UniList, "Выберите учебное заведение...", new { ng_model = "uniByList.UniversityName", ng_change = "ChangeModes('list', 'list')" })
+                <input type="button" id="addUniButton" value="Ввести вручную..." ng-click="ChangeModes('manual', 'manual')" /><br />
+            </div>
+            <select ng-model="facByList.FacultyName" ng-options="fac for fac in facs" ng-change="ChangeModes(null, 'list')" ng-disabled="!uniByList.UniversityName">
+                <option value>---Please choose a faculty---</option>
+            </select>
+            <input type="button" id="addFac" value="Ввести вручную..." ng-click="ChangeModes(null, 'manual')" ng-disabled="!uniByList.UniversityName" />
+
+
+
+
+
+
+
+
+        </div>
+        <div id="manualEnter" class="col-md-3" ng-show="CheckMode('uni','manual') || CheckMode('fac','manual')">
+            <div id="addUniDiv" ng-show="CheckMode('uni','manual')">
+                <h4>Ввод данных об учебном заведении</h4>
+                <hr />
+                <form id="UnivForm" novalidate>
+                    <div style="float: none">@Html.LabelFor(m => m.University.UniversityName):</div>
+                    <div style="float: none">@Html.TextBoxFor(m => m.University.UniversityName, new { ng_model = "uniManually.UniversityName", required = "" })</div>
+                    <div style="float: none">@Html.ValidationMessageFor(m => m.University.UniversityName)</div>
+                    <div style="float: none">@Html.LabelFor(m => m.University.Country):</div>
+                    <div style="float: none">@Html.TextBoxFor(m => m.University.Country, new { ng_model = "uniManually.Country" })</div>
+                    <div style="float: none">@Html.ValidationMessageFor(m => m.University.Country)</div>
+                    <div style="float: none">@Html.LabelFor(m => m.University.City):</div>
+                    <div style="float: none">@Html.TextBoxFor(m => m.University.City, new { ng_model = "uniManually.City" })</div>
+                    <div style="float: none">@Html.ValidationMessageFor(m => m.University.City)</div>
+                    <div style="float: none">@Html.LabelFor(m => m.University.IsHighSchool):</div>
+                    <div style="float: none">@Html.CheckBoxFor(m => m.University.IsHighSchool, new { ng_model = "uniManually.IsHighSchool" })</div>
+                </form>
+            </div>
+            <div id="addFacDiv" style="clear: left" ng-show="CheckMode('fac','manual')">
+                <h3>Ввод данных о факультете</h3>
+                <form id="FacForm">
+                    <div style="float: none">@Html.LabelFor(m => m.Faculty.FacultyName)</div>
+                    <div style="float: none">@Html.TextBoxFor(m => m.Faculty.FacultyName, new { ng_model = "facManually.FacultyName" })</div>
+                    <div style="float: none">@Html.ValidationMessageFor(m => m.Faculty.FacultyName)</div>
+
+                </form>
+
+                <input type="button" value="Сброс" ng-show="CheckMode('fac', 'manual')" ng-click="ChangeModes('list', 'list')" />
+            </div>
+        </div>
+        <div id="eduInfoDiv" class="col-md-4">
+            <form id="EduForm">
+                <h4>Шаг 2: Ввод данных об образовании</h4>
+                <hr />
+                <div style="float:none">@Html.LabelFor(m => m.EduBegin)</div>
+                <div style="float:none">@Html.TextBoxFor(m => m.EduBegin, new { ng_model = "eduUnderEdit.EduBegin", data_val_date = "Неверный формат даты!" })</div>
+                <div style="float:none">@Html.ValidationMessageFor(m => m.EduBegin)</div>
+                <div style="float:none">@Html.LabelFor(m => m.EduEnd)</div>
+                <div style="float:none">@Html.TextBoxFor(m => m.EduEnd, new { ng_model = "eduUnderEdit.EduEnd", data_val_date = "Неверный формат даты!" })</div>
+                <div style="float:none">@Html.ValidationMessageFor(m => m.EduEnd)</div>
+                <div style="float:none">@Html.LabelFor(m => m.Specialty)</div>
+                <div style="float:none">@Html.TextBoxFor(m => m.Specialty, new { ng_model = "eduUnderEdit.Specialty" })</div>
+                <div style="float:none">@Html.ValidationMessageFor(m => m.Specialty)</div>
+                <div style="float:none">@Html.LabelFor(m => m.Qualification)</div>
+                <div style="float:none">@Html.TextBoxFor(m => m.Qualification, new { ng_model = "eduUnderEdit.Qualification" })</div>
+                <div style="float: none">@Html.ValidationMessageFor(m => m.Qualification)</div>
+
+                <input type="button" value="Завершить" ng-click="Finish()" />
+
+            </form>
+            @*<div class="ErrorPlate">
+                    <ul ng-repeat="error in editor.validationMessages">
+                        <li>{{error}}</li>
+                   </ul>
+                </div>*@
+        </div>
+    </div>
+
+        
+
+    

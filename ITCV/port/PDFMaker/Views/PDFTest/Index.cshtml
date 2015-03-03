@@ -1,0 +1,35 @@
+﻿@model PDFMaker.Models.UserViewModel
+@{
+    Layout = null;
+ }
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        
+        <p>UserId: @Model.User.UserId</p>
+        <p>User's exams passed: </p>
+        <table>
+            @foreach (var item in Model.Stats.CompletedExams)
+            {
+                <tr>
+                    <td>@item.ExamName</td>
+                    <td>@item.ExamResult</td>
+                    <td>@item.IsPassed</td>
+                    <td>@item.ExamDate.ToShortDateString()</td>
+                </tr>
+                
+            }
+        </table>
+       @Html.ActionLink("Generate PDF", "GeneratePDF")
+
+    </div>
+</body>
+</html>
+
+

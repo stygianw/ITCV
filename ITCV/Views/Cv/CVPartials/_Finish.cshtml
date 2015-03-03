@@ -1,0 +1,40 @@
+﻿
+
+<div id="finishDiv" ng-controller="FinishController">
+    <div class="sidebar col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Текущий статус раздела
+            </div>
+            <div class="panel-body" ng-if="status= ='modified'">
+                <span class="label">Нажмите кнопку "проверить" для проверки данных.</span> 
+            </div>
+            <table class="table">
+                <tr ng-repeat="message in messages track by $index">
+                    <td class="warning">
+                        {{message}}
+                    </td>
+                </tr>
+            </table>
+         </div>
+      </div>
+
+    <div class="jumbotron col-md-8">
+
+        <h2>
+            Проверка данных и окончание заполнения
+        </h2>
+        <p>
+            Произведите проверку заполненных вами данных:
+        </p>
+        <input type="button" class="btn btn-success btn-lg" ng-click="Validate()" value="Проверить" /><br />
+        <div class="alert alert-danger" ng-show="!!status">
+            Отправка данных невозможна. Произведите проверку или исправьте ошибки.
+        </div>
+            
+        <input type="button" class="btn btn-primary btn-lg" ng-disabled="!!status" ng-click="SendAll()" value="Отправить" />
+    </div>
+
+    
+    
+</div>

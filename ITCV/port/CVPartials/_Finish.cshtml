@@ -1,0 +1,27 @@
+﻿
+
+<div id="finishDiv" ng-controller="FinishController">
+    <div class="sidebar">
+        <h3>Текущий статус раздела:</h3>
+        <hr />
+        <span class="notice">
+            Нажмите кнопку "Проверить" и произведите провекрку данных. Затем вы сможете отправить данные для сохранения.
+        </span>
+        <input type="button" ng-click="Validate()" value="Проверить" /><br />
+        <input type="button" ng-disabled="!!status" ng-click="SendAll()" value="Отправить" />
+    </div>
+
+    <div style="padding-left: 15px">
+        <h3>Результат проверки:</h3>
+        <hr />
+        <div id="errorsContainer" class="notice errorsContainer" ng-class="{errorsContainerOk: !status, errorsContainerFault: status == 'fault'}">
+
+            <ul>
+                <li ng-if="status == 'modified'">Нажмите кнопку "проверить" для проверки данных.</li>
+                <li ng-repeat="message in messages track by $index">{{message}}</li>
+            </ul>
+            
+        </div>
+    </div>
+    
+</div>

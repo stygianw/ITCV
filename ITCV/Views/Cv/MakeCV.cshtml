@@ -1,0 +1,83 @@
+﻿
+@{
+    
+    ViewBag.Title = "Index2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+
+@section angular{
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>    
+<script src="~/Scripts/_angular/angular.min.js"></script>
+<script src="~/Scripts/_angular/angular-animate.js"></script>
+<script src="~/Scripts/_angular/app1.js"></script>
+
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+<div id="root" ng-app="CV" class="container">
+    
+    @if ((bool)ViewBag.UnderEdit)
+    {
+        
+        <script>
+            CV = @Html.Raw(Json.Encode((ITCV.Models.Views.CV)ViewBag.CvJson))
+            PrepareForEdit(CV);
+            angular.element($("#root")).scope().$apply();
+        </script>
+        
+    }
+
+    <div ng-controller="TabsController as tabs">
+
+        <ul id="tabLinks" style="margin: 2px" class="nav nav-pills">
+
+            <li ng-class="{'active': tabs.isSet(0)}"><a style="padding-left: 9px" href="javascript:void(0)" ng-click="tabs.setTab(0)">Личные данные</a></li>
+            <li ng-class="{'active': tabs.isSet(1)}"><a style="padding-left: 9px" href="javascript:void(0)" ng-click="tabs.setTab(1)">Основные навыки</a></li>
+            <li ng-class="{'active': tabs.isSet(2)}"><a style="padding-left: 9px" href="javascript:void(0)" ng-click="tabs.setTab(2)">Места работы</a></li>
+            <li ng-class="{'active': tabs.isSet(3)}"><a style="padding-left: 9px" href="javascript:void(0)" ng-click="tabs.setTab(3)">Образование</a></li>
+            <li ng-class="{'active': tabs.isSet(4)}"><a style="padding-left: 9px" href="javascript:void(0)" ng-click="tabs.setTab(4)">Сертификаты</a></li>
+            <li ng-class="{'active': tabs.isSet(5)}"><a style="padding-left: 9px" href="javascript:void(0)" ng-click="tabs.setTab(5)">Другая информация</a></li>
+            <li ng-class="{'active': tabs.isSet(6)}"><a style="padding-left: 9px" href="javascript:void(0)" ng-click="tabs.setTab(6)">Завершить</a></li>
+        </ul>
+
+        <div id="tabs">
+            <div id="tab1" class="row" ng-show="tabs.isSet(0)">
+                @Html.Partial("CVPartials/_PersonalData")
+
+            </div>
+            <div id="tab2" class="maintab" ng-show="tabs.isSet(1)">
+                @Html.Partial("CVPartials/_BasicSkills")
+
+            </div>
+
+            <div id="tab3" class="maintab" ng-show="tabs.isSet(2)" ng-controller="JobsController as jobsCtrl">
+
+                @Html.Partial("CVPartials/_JobsOverview")
+            </div>
+
+            <div id="tab4" class="maintab" ng-show="tabs.isSet(3)">
+                @Html.Action("Education")
+
+            </div>
+            <div id="tab5" class="maintab" ng-show="tabs.isSet(4)">
+                @Html.Partial("CVPartials/_Certificates")
+
+            </div>
+
+            <div id="tab6" class="maintab" ng-show="tabs.isSet(5)">
+                @Html.Partial("CVPartials/_OtherInfo")
+
+            </div>
+            <div id="tab7" class="maintab" ng-show="tabs.isSet(6)">
+                @Html.Partial("CVPartials/_Finish")
+
+            </div>
+        </div>
+    </div>
+</div>

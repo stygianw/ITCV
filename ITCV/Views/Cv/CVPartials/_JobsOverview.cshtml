@@ -1,0 +1,94 @@
+﻿@model ITCV.Models.Views.Job
+
+    <div id="addedJobs" class="sidebar col-md-4" ng-controller="SidebarController as side">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Текущий статус раздела:
+            </div>
+            <div class="panel-body" ng-if="!jobsCtrl.jobs.length">
+                <span>Вы не добавили ни одной работы</span>
+            </div>
+            <table class="table">
+                    @*<div id="JobHeader" class="sideHeader" ng-class="{sideSelected: side.IsSet($index), sideEdit: jobsCtrl.jobEditMode.index === $index}" ng-click="side.ShowDiv($index)">{{"Работа " + ($index + 1)}}*@
+                    <tr ng-repeat="element in jobsCtrl.jobs track by $index">
+                        <td ng-class="{warning: jobsCtrl.jobEditMode.index === $index}">
+                            <a ng-click="side.ShowDiv($index)" data-toggle="collapse" href="#JobContainer{{$index}}">{{"Работа " + ($index + 1)}}</a>
+                            <span ng-if="jobsCtrl.jobEditMode.index === $index"> - Редактируется</span>
+                            @*<span ng-if="jobsCtrl.jobEditMode.index === $index"> - Редактируется</span>
+            <a href="javascript:void(0)" ng-if="jobsCtrl.jobEditMode.index === $index" ng-click="jobsCtrl.CancelEdit()">(Отменить)</a></div>*@
+                            <div id="JobContainer{{$index}}" class="collapse" @*ng-show="side.IsSet($index)"*@>
+                                <table>
+                                    <tr>
+                                        <td>Компания: </td>
+                                        <td>{{element.Employer}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Дата начала работы: </td>
+                                        <td>{{element.DateOfBeginning}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Дата конца работы: </td>
+                                        <td>{{element.DateOfEnding}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Должность: </td>
+                                        <td>{{element.Position}}</td>
+                                    </tr>
+                                </table>
+                                <input type="button" class="btn btn-warning btn-sm"  ng-if="!(jobsCtrl.jobEditMode.index === $index)" ng-click="jobsCtrl.EditJob($index)" value="Edit" />
+                                <input type="button" class="btn btn-danger btn-sm" ng-if="jobsCtrl.jobEditMode.index === $index" ng-click="jobsCtrl.CancelEdit()" value="Cancel Edit" />
+                            </div>
+                        </td>
+                    </tr>
+                
+            </table>
+            </div>
+        </div>
+
+    <div id="jobExperience" style="float:left; padding-left: 15px">
+        <h4>
+            Введите данные о месте работы:
+        </h4>
+        <hr />
+        <form id="jobsForm">
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Employer):</td>
+                    <td>@Html.TextBoxFor(m => m.Employer, new { ng_model = "jobsCtrl.jobUnderEdit.Employer" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.Employer)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.DateOfBeginning):</td>
+                    <td>@Html.TextBoxFor(m => m.DateOfBeginning, new { ng_model = "jobsCtrl.jobUnderEdit.DateOfBeginning", data_val_date = "Неверный формат даты!" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.DateOfBeginning)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.DateOfEnding):</td>
+                    <td>@Html.TextBoxFor(m => m.DateOfEnding, new { ng_model = "jobsCtrl.jobUnderEdit.DateOfEnding", data_val_date = "Неверный формат даты!" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.DateOfEnding)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Position):</td>
+                    <td>@Html.TextBoxFor(m => m.Position, new { ng_model = "jobsCtrl.jobUnderEdit.Position" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.Position)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Responsibility):</td>
+                    <td>@Html.TextAreaFor(m => m.Responsibility, new { ng_model = "jobsCtrl.jobUnderEdit.Responsibility" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.Responsibility)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.PersonalAchievements):</td>
+                    <td>@Html.TextAreaFor(m => m.PersonalAchievements, new { ng_model = "jobsCtrl.jobUnderEdit.PersonalAchievements" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.PersonalAchievements)</td>
+                </tr>
+            </table>
+            
+            <input type="button" id="addJobButton" value="{{jobsCtrl.jobEditMode.mode == 'Add' ? 'Добавить' : 'Редактировать'}} работу" ng-click="jobsCtrl.AddJob()" />
+        </form>
+    </div>
+
+
+
+
+

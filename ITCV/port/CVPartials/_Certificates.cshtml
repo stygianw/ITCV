@@ -1,0 +1,80 @@
+﻿@model TPN.NewModel.CV.OtherCerts
+<div id="certificates" ng-controller="CertificatesController as certs">
+    <div id="AddedCerts" ng-controller="SidebarController as side" class="sidebar">
+        <h3>Текущий статус раздела:</h3>
+        <hr />
+        <span ng-show="!certs.certsFromModel.length">У вас нет добавленных сертификатов</span>
+        <section ng-repeat="cert in certs.certsFromModel" class="repeater">
+            <div id="CertHeader" class="sideHeader" ng-click="side.ShowDiv($index)" ng-class="{sideSelected: side.IsSet($index), sideEdit: certs.editor.item === $index}">
+                {{"Сертификат " + $index}}
+                <span ng-show="certs.editor.item === $index"> - редактируется</span>
+                <a href="javascript:void(0)" ng-if="certs.editor.item === $index" ng-click="certs.CancelEdit()">(Cancel)</a>
+            </div>
+            <div ng-show="side.IsSet($index)" class="sideContainer">
+                <table>
+                    <tr>
+                        <td>Издатель: </td>
+                        <td>{{cert.Issuer}}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата выдачи:</td>
+                        <td>{{cert.IssueDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>Квалификация: </td>
+                        <td>{{cert.Qualification}}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="button" value="Редактировать" ng-click="certs.EditCert($index)"/></td>
+                    </tr>
+                    
+                </table>
+            </div>
+        </section>
+
+    </div>
+    
+    <div id="addCertDiv" style="padding-left: 15px">
+
+        <h3>Введите данные о сертификате: </h3>
+        <hr />
+
+        <form id="CertForm">
+            <div style="float: none">
+                @Html.LabelFor(m => m.Issuer):
+            </div>
+            <div style="float: none">
+                @Html.TextBoxFor(m => m.Issuer, new { ng_model = "certs.cert.Issuer" })
+            </div>
+            <div style="float: none">
+                @Html.ValidationMessageFor(m => m.Issuer)
+            </div>
+            <div style="float: none">
+                @Html.LabelFor(m => m.IssueDate):
+            </div>
+            <div style="float: none">
+                @Html.TextBoxFor(m => m.IssueDate, new { ng_model = "certs.cert.IssueDate", data_val_date = "Неверный формат даты!" })
+            </div>
+            <div style="float: none">
+                @Html.ValidationMessageFor(m => m.IssueDate)
+            </div>
+            <div style="float: none">
+                @Html.LabelFor(m => m.Qualification):
+            </div>
+            <div style="float: none">
+                @Html.TextBoxFor(m => m.Qualification, new { ng_model = "certs.cert.Qualification" })
+            </div>
+            <div style="float: none">
+                @Html.ValidationMessageFor(m => m.Qualification)
+            </div>
+            <div style="float: none">
+                @Html.LabelFor(m => m.OtherInfo):
+            </div>
+            <div style="float: none">
+                @Html.TextAreaFor(m => m.OtherInfo, new { ng_model = "certs.cert.OtherInfo" })
+            </div>
+            <input type="button" value="Добавить/редактировать" ng-click="certs.SubmitCert()" />
+        </form>
+
+    </div>
+</div>
